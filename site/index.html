@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nata &amp; Canela, Pastelaria</title>
+<meta name="description" content="Da massa ao forno: pastéis de nata feitos à mão, todos os dias, saídos do forno às seis da manhã.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0a08;--cream:#f3e9d8;--gold:#d9a441;--ember:#ff7a1a;--muted:rgba(243,233,216,.62);--line:rgba(243,233,216,.16)}
+*{box-sizing:border-box;margin:0}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--cream);font-family:Inter,system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.nav{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:22px 40px}
+.nav .logo{font-family:Fraunces,serif;font-weight:500;font-size:22px;letter-spacing:.02em}
+.nav .logo em{font-style:italic;color:var(--gold)}
+.nav ul{display:flex;gap:28px;list-style:none;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.nav .cta{font-size:12px;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(243,233,216,.35);padding:10px 18px;border-radius:999px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative}
+.stage{position:relative;height:100vh;overflow:hidden;background:var(--bg)}
+.bgfill{position:absolute;inset:-6%;background:url(assets/nata-frame-00-vazio.png) center/cover no-repeat;filter:blur(26px) brightness(.72) saturate(1.1)}
+.vid{position:absolute;inset:0}
+.vid video{position:absolute;display:block;
+  -webkit-mask-image:radial-gradient(ellipse 52% 50% at 50% 55%,#000 48%,transparent 98%);
+          mask-image:radial-gradient(ellipse 52% 50% at 50% 55%,#000 48%,transparent 98%)}
+.stage.heat .vid video{filter:url(#heatwave) saturate(1.15) brightness(1.04)}
+.tint{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;background:#000;opacity:.0}
+.wash{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:0;background:radial-gradient(60% 50% at 50% 55%,var(--wash,#d9a441) 0%,transparent 70%)}
+.heat-glow{position:absolute;inset:0;opacity:0;pointer-events:none;mix-blend-mode:screen;background:
+  radial-gradient(70% 55% at 50% 30%,rgba(255,122,26,.6) 0%,rgba(255,122,26,0) 70%),
+  linear-gradient(180deg,rgba(255,140,40,.35),rgba(255,140,40,0) 45%)}
+.embers{position:absolute;inset:0;opacity:0;pointer-events:none;overflow:hidden}
+.embers i{position:absolute;bottom:-4%;width:4px;height:4px;border-radius:50%;background:var(--ember);box-shadow:0 0 8px 2px rgba(255,122,26,.8);animation:ember 4s linear infinite}
+@keyframes ember{0%{transform:translate(0,0) scale(1);opacity:0}10%{opacity:1}100%{transform:translate(var(--dx),-110vh) scale(.2);opacity:0}}
+.cinn{position:absolute;inset:0;opacity:0;pointer-events:none;overflow:hidden}
+.cinn i{position:absolute;top:-3%;width:3px;height:3px;border-radius:50%;background:#b8652a;box-shadow:0 0 3px rgba(184,101,42,.9);animation:cinn 3.4s linear infinite}
+@keyframes cinn{0%{transform:translate(0,0);opacity:0}8%{opacity:1}100%{transform:translate(var(--dx),108vh);opacity:.2}}
+.shade{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(180deg,rgba(13,10,8,.6),rgba(13,10,8,0) 32%),
+  linear-gradient(0deg,rgba(13,10,8,.7),rgba(13,10,8,0) 28%)}
+
+/* títulos: entram letra a letra por cima do pastel */
+.titles{position:absolute;left:0;right:0;top:11vh;text-align:center;pointer-events:none}
+.t{position:absolute;left:0;right:0;top:0;opacity:0}
+.t .kicker{display:inline-flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.t .kicker i{display:block;width:34px;height:1px;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+.t .kicker i.r{transform-origin:right}
+.t h1{font-family:Manrope,Inter,sans-serif;font-weight:700;font-size:clamp(46px,6.6vw,110px);line-height:1;letter-spacing:-.035em;perspective:800px;text-shadow:0 4px 30px rgba(0,0,0,.45)}
+.t h1 .w{display:inline-block;white-space:nowrap}
+.t h1 .c{display:inline-block;will-change:transform,opacity,filter}
+.t h1 em{font-style:normal;color:var(--gold)}
+.t h1 em .c{background:linear-gradient(110deg,var(--gold) 30%,#fff3d6 50%,var(--gold) 70%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 3.2s linear infinite}
+.t h1 em.hot .c{background-image:linear-gradient(110deg,var(--ember) 30%,#ffd9b0 50%,var(--ember) 70%)}
+@keyframes shine{0%{background-position:120% 0}100%{background-position:-120% 0}}
+.t p{margin-top:18px;font-size:15px;line-height:1.6;color:var(--muted);max-width:44ch;margin-left:auto;margin-right:auto}
+
+/* etiquetas que voam para junto do pastel */
+.tags{position:absolute;inset:0;pointer-events:none}
+.tag{position:absolute;display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);opacity:0;white-space:nowrap;will-change:transform,opacity}
+.tag b{display:block;width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(217,164,65,.25)}
+.tag i{display:block;width:56px;height:1px;background:linear-gradient(90deg,var(--gold),rgba(217,164,65,0));transform-origin:left;transform:scaleX(0)}
+.tag.l{flex-direction:row-reverse}
+.tag.l i{background:linear-gradient(270deg,var(--gold),rgba(217,164,65,0));transform-origin:right}
+.tag small{display:block;font-size:10px;letter-spacing:.16em;color:var(--muted);margin-top:4px}
+.tag .txt{padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:rgba(13,10,8,.55);backdrop-filter:blur(8px)}
+
+/* contador do forno, botão */
+.temp{position:absolute;left:40px;bottom:110px;opacity:0}
+.temp b{display:block;font-family:Manrope,sans-serif;font-weight:700;font-size:clamp(60px,7.5vw,120px);line-height:.95;letter-spacing:-.04em;color:#fff1dc;text-shadow:0 0 24px rgba(255,122,26,.9),0 0 60px rgba(255,122,26,.5)}
+.temp > span{display:block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.btnwrap{position:absolute;left:50%;bottom:17vh;transform:translateX(-50%);opacity:0}
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;background:var(--gold);color:#1a1208;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:18px 30px;border-radius:999px;overflow:hidden;box-shadow:0 10px 40px rgba(217,164,65,.35)}
+.btn:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);background-size:220% 100%;animation:shine 2.4s linear infinite}
+.btn svg{width:14px;height:14px}
+
+.progress{position:absolute;left:40px;bottom:44px;width:120px;height:1px;background:var(--line)}
+.progress i{display:block;height:100%;width:0;background:var(--gold)}
+.meta{position:absolute;right:40px;bottom:38px;display:flex;gap:40px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.meta b{display:block;color:var(--cream);font-family:Fraunces,serif;font-weight:300;font-size:26px;letter-spacing:0;text-transform:none;margin-bottom:4px}
+.hint{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.hint i{width:1px;height:28px;background:linear-gradient(var(--gold),transparent);display:block}
+
+/* ---------- Vitrine ---------- */
+.vitrine{padding:140px 8vw 120px;border-top:1px solid var(--line)}
+.vitrine header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px}
+.vitrine h2{font-family:Fraunces,serif;font-weight:300;font-size:clamp(34px,3.6vw,56px);letter-spacing:-.02em}
+.vitrine h2 em{font-style:italic;color:var(--gold)}
+.vitrine header p{color:var(--muted);font-size:14px;max-width:34ch;line-height:1.6}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;background:#151009;border:1px solid var(--line)}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.card:hover img{transform:scale(1.05)}
+.card .txt{position:absolute;left:24px;right:24px;bottom:24px;display:flex;justify-content:space-between;align-items:flex-end;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.card .txt h3{font-family:Fraunces,serif;font-weight:300;font-size:26px}
+.card .txt small{display:block;color:var(--muted);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-top:6px}
+.card .txt b{font-family:Fraunces,serif;font-weight:300;font-size:22px;color:var(--gold)}
+.foot{padding:36px 8vw 44px;display:flex;justify-content:space-between;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line)}
+
+@media (max-width:820px){
+  .nav ul{display:none}
+  .meta,.temp,.tag small{display:none}
+  .t h1{font-size:12vw}
+  .tag{font-size:10px}
+  .cards{grid-template-columns:1fr}
+  .vitrine header{flex-direction:column;align-items:flex-start;gap:16px}
+}
+@media (prefers-reduced-motion:reduce){ .card img{transition:none} .embers,.cinn{display:none} .t h1 em .c,.btn:after{animation:none} }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="heatwave" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence id="heatnoise" type="fractalNoise" baseFrequency="0.012 0.03" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<nav class="nav">
+  <a class="logo" href="#">Nata <em>&amp;</em> Canela</a>
+  <ul><li><a href="#vitrine">Vitrine</a></li><li><a href="#">A casa</a></li><li><a href="#">Encomendas</a></li><li><a href="#">Contacto</a></li></ul>
+  <a class="cta" href="#">Encomendar</a>
+</nav>
+
+<div id="smooth-wrapper"><div id="smooth-content">
+
+<section class="hero">
+  <div class="stage">
+    <div class="bgfill"></div>
+    <div class="vid"><video src="assets/nata-scrub.mp4" muted playsinline preload="auto" poster="assets/nata-frame-00-vazio.png"></video></div>
+    <div class="tint"></div>
+    <div class="wash"></div>
+    <div class="heat-glow"></div>
+    <div class="embers" aria-hidden="true"></div>
+    <div class="cinn" aria-hidden="true"></div>
+    <div class="shade"></div>
+
+    <div class="titles">
+      <div class="t">
+        <div class="kicker"><i></i>Pastelaria artesanal, Lisboa<i class="r"></i></div>
+        <h1>Massa esticada à <em>mão.</em></h1>
+        <p>Uma fita de massa folhada, enrolada uma a uma até fazer o copo. Como em 1837.</p>
+      </div>
+      <div class="t">
+        <div class="kicker"><i></i>O creme<i class="r"></i></div>
+        <h1>Creme feito <em>na hora.</em></h1>
+        <p>Gemas, leite, açúcar, limão e canela em pau. E um segredo que não vem no site.</p>
+      </div>
+      <div class="t">
+        <div class="kicker"><i></i>O forno<i class="r"></i></div>
+        <h1><em class="hot">240 graus,</em> 12 minutos.</h1>
+        <p>Nem um minuto a mais. É aí que o creme cora e a massa estala.</p>
+      </div>
+      <div class="t">
+        <div class="kicker"><i></i>Encomendas para hoje<i class="r"></i></div>
+        <h1>Canela <em>a gosto.</em></h1>
+        <p>Reserva a tua caixa antes das onze e levanta-a ainda quente.</p>
+      </div>
+    </div>
+
+    <div class="tags">
+      <div class="tag l" data-ph="0" style="left:16%;top:44%"><div class="txt">Massa folhada<small>32 camadas</small></div><i></i><b></b></div>
+      <div class="tag" data-ph="0" style="left:64%;top:38%"><b></b><i></i><div class="txt">Manteiga dos Açores<small>82 % gordura</small></div></div>
+      <div class="tag" data-ph="0" style="left:62%;top:72%"><b></b><i></i><div class="txt">Enrolada à mão<small>uma de cada vez</small></div></div>
+
+      <div class="tag l" data-ph="1" style="left:17%;top:40%"><div class="txt">Gemas frescas<small>do dia</small></div><i></i><b></b></div>
+      <div class="tag" data-ph="1" style="left:65%;top:42%"><b></b><i></i><div class="txt">Limão e canela em pau<small>infusão lenta</small></div></div>
+      <div class="tag" data-ph="1" style="left:61%;top:74%"><b></b><i></i><div class="txt">Sem conservantes<small>nem corantes</small></div></div>
+
+      <div class="tag l" data-ph="2" style="left:17%;top:42%"><div class="txt">Forno de pedra</div><i></i><b></b></div>
+
+      <div class="tag l" data-ph="3" style="left:17%;top:42%"><div class="txt">Bem crocante<small>ao primeiro toque</small></div><i></i><b></b></div>
+    </div>
+
+    <div class="temp"><b><span class="n">20</span>°</b><span>temperatura do forno</span></div>
+    <div class="btnwrap"><a class="btn" href="#"><span>Encomendar para hoje</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h11M9 3.5 13.5 8 9 12.5"/></svg></a></div>
+
+    <div class="progress"><i></i></div>
+    <div class="meta"><div><b>6h</b>Primeira fornada</div><div><b>1,30 €</b>A unidade</div><div><b>7,50 €</b>Caixa de seis</div></div>
+    <div class="hint"><span>Desliza</span><i></i></div>
+  </div>
+</section>
+
+<section class="vitrine" id="vitrine">
+  <header>
+    <h2>A vitrine <em>desta manhã.</em></h2>
+    <p>O que sai do forno vai direto para o balcão. O que sobra às sete da tarde não se vende no dia seguinte.</p>
+  </header>
+  <div class="cards">
+    <a class="card" href="#"><img src="assets/nata-frame-a.png" alt="Pastel de nata clássico"><div class="txt"><div><h3>Clássico</h3><small>Sem canela</small></div><b>1,30 €</b></div></a>
+    <a class="card" href="#"><img src="assets/nata-frame-b.png" alt="Pastel de nata com canela"><div class="txt"><div><h3>Com canela</h3><small>E açúcar em pó</small></div><b>1,30 €</b></div></a>
+    <a class="card" href="#"><img src="assets/nata-frame-c-raw-filled.png" alt="Pastel de nata cru, antes do forno"><div class="txt"><div><h3>Para cozer em casa</h3><small>Caixa de seis, crus</small></div><b>6,50 €</b></div></a>
+  </div>
+</section>
+
+<footer class="foot"><span>Nata &amp; Canela</span><span>Rua das Flores 12, Lisboa</span><span>Todos os dias, 6h às 19h</span></footer>
+
+</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollSmoother.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+const RECORD = new URLSearchParams(location.search).has('record');
+const HERO_LEN = 5;
+// cortes do vídeo em segundos: fita (lenta), creme, forno, canela
+const CUTS = [0, 8.92, 13.96, 19.00, 23.88];
+const TOTAL = CUTS[CUTS.length - 1];
+const B = CUTS.map(c => c / TOTAL);          // fronteiras das fases em fração do scroll
+const FOCUS = { x: 0.70, y: 0.62 };          // onde está o pastel dentro do vídeo (fração)
+const ANCHOR = { x: 0.50, y: 0.56 };         // onde o pastel fica no ecrã
+
+const stage = document.querySelector('.stage');
+const vidBox = document.querySelector('.vid');
+const video = vidBox.querySelector('video');
+const titles = gsap.utils.toArray('.t');
+const tags = gsap.utils.toArray('.tag');
+const bar = document.querySelector('.progress i');
+const hint = document.querySelector('.hint');
+const glow = document.querySelector('.heat-glow');
+const embers = document.querySelector('.embers');
+const cinn = document.querySelector('.cinn');
+const tint = document.querySelector('.tint');
+const wash = document.querySelector('.wash');
+const temp = document.querySelector('.temp');
+const tempN = temp.querySelector('.n');
+const btnwrap = document.querySelector('.btnwrap');
+const disp = document.querySelector('#heatwave feDisplacementMap');
+const noise = document.querySelector('#heatnoise');
+let progress = 0, shown = 0, dur = 0;
+
+// ---- vídeo mais afastado, pastel ao centro; as margens ficam com o fundo desfocado ----
+function layoutVideo() {
+  const vw = innerWidth, vh = innerHeight, r = 16 / 9;
+  const H = Math.min(vh * 0.86, vw / r * 0.9), W = H * r;
+  gsap.set(video, { width: W, height: H, left: ANCHOR.x * vw - FOCUS.x * W, top: ANCHOR.y * vh - FOCUS.y * H });
+}
+layoutVideo(); addEventListener('resize', layoutVideo);
+
+// ---- letras ----
+function split(h1) {
+  const out = [];
+  [...h1.childNodes].forEach(node => {
+    const isEm = node.nodeType === 1;
+    const text = node.textContent;
+    const frag = document.createDocumentFragment();
+    text.split(' ').forEach((word, wi, arr) => {
+      if (word) {
+        const w = document.createElement('span'); w.className = 'w';
+        [...word].forEach(ch => { const c = document.createElement('span'); c.className = 'c'; c.textContent = ch; w.appendChild(c); out.push(c); });
+        frag.appendChild(w);
+      }
+      if (wi < arr.length - 1) frag.appendChild(document.createTextNode(' '));
+    });
+    if (isEm) { node.textContent = ''; node.appendChild(frag); } else { h1.replaceChild(frag, node); }
+  });
+  return out;
+}
+const chars = titles.map(t => split(t.querySelector('h1')));
+
+function seed(container, n) {
+  for (let i = 0; i < n; i++) {
+    const e = document.createElement('i');
+    e.style.left = (Math.random() * 100) + '%';
+    e.style.setProperty('--dx', (Math.random() * 160 - 80) + 'px');
+    e.style.animationDelay = (-Math.random() * 4) + 's';
+    e.style.animationDuration = (2.6 + Math.random() * 2.4) + 's';
+    container.appendChild(e);
+  }
+}
+seed(embers, 28); seed(cinn, 60);
+
+if (!RECORD) ScrollSmoother.create({ smooth: 1.4, effects: false, normalizeScroll: true });
+
+// ---- timeline presa ao scroll ----
+const heat = { k: 0 };
+const tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: '.stage', start: 'top top', end: () => '+=' + (HERO_LEN * 100) + '%',
+    pin: true, scrub: RECORD ? true : 0.5, anticipatePin: 1,
+    onUpdate: st => { progress = st.progress; bar.style.width = (st.progress * 100) + '%'; }
+  }
+});
+
+const WASH = ['#8f7a5a', '#d9a441', '#ff7a1a', '#c8783a'];
+const TINTOP = [0.0, 0.10, 0.0, 0.14];
+
+titles.forEach((t, i) => {
+  const at = B[i], end = B[i + 1], L = end - at, s = L / 0.25; // s: escala face a uma fase de um quarto
+  const k = t.querySelector('.kicker'), lines = k.querySelectorAll('i'), p = t.querySelector('p');
+  const cs = chars[i];
+  const enterAt = i === 0 ? at : at + .01 * s;
+  tl.set(t, { opacity: 1 }, enterAt)
+    .fromTo(lines, { scaleX: 0 }, { scaleX: 1, duration: .04 * s, ease: 'power2.out' }, enterAt + .005 * s)
+    .fromTo(k, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: .03 * s }, enterAt + .005 * s)
+    .fromTo(cs, { opacity: 0, y: 60, rotateX: -70, filter: 'blur(10px)' },
+                { opacity: 1, y: 0, rotateX: 0, filter: 'blur(0px)', duration: .045 * s, ease: 'power3.out', stagger: { each: .0022 * s, from: 'start' } }, enterAt + .012 * s)
+    .fromTo(p, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: .035 * s, ease: 'power2.out' }, enterAt + .05 * s);
+  if (i < 3) {
+    tl.to(cs, { opacity: 0, y: -50, rotateX: 40, filter: 'blur(8px)', duration: .035 * s, ease: 'power2.in', stagger: { each: .0012 * s, from: 'random' } }, end - .05 * s)
+      .to([k, p], { opacity: 0, y: -14, duration: .03 * s, ease: 'power2.in' }, end - .045 * s)
+      .set(t, { opacity: 0 }, end - .005 * s);
+  }
+  const tg = tags.filter(x => +x.dataset.ph === i);
+  tg.forEach((x, j) => {
+    const dir = x.classList.contains('l') ? -1 : 1;
+    tl.fromTo(x, { opacity: 0, x: dir * 90, scale: .6 }, { opacity: 1, x: 0, scale: 1, duration: .04 * s, ease: 'back.out(1.6)' }, enterAt + (.07 + j * .022) * s)
+      .fromTo(x.querySelector('i'), { scaleX: 0 }, { scaleX: 1, duration: .03 * s, ease: 'power2.out' }, enterAt + (.085 + j * .022) * s);
+    if (i < 3) tl.to(x, { opacity: 0, x: dir * 60, scale: .8, duration: .03 * s, ease: 'power2.in' }, end - (.06 - j * .006) * s);
+  });
+  tl.to(wash, { '--wash': WASH[i], opacity: i === 2 ? 0 : .35, duration: .06 * s }, at);
+  tl.to(tint, { opacity: TINTOP[i], duration: .06 * s }, at);
+});
+
+// forno (fase 2)
+{
+  const at = B[2], end = B[3], s = (end - at) / 0.25;
+  tl.to(heat, { k: 1, duration: .05 * s, ease: 'power2.out' }, at + .01 * s)
+    .fromTo(temp, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: .04 * s }, at + .02 * s)
+    .to(tempN, { textContent: 240, snap: { textContent: 1 }, duration: .14 * s, ease: 'power1.out' }, at + .02 * s)
+    .to(heat, { k: 0, duration: .05 * s, ease: 'power2.in' }, end - .04 * s)
+    .to(temp, { opacity: 0, y: -16, duration: .03 * s }, end - .04 * s);
+}
+// canela e fecho (fase 3)
+{
+  const at = B[3], s = (1 - at) / 0.25;
+  tl.to(cinn, { opacity: 1, duration: .05 * s }, at + .03 * s)
+    .to(cinn, { opacity: 0, duration: .05 * s }, at + .19 * s)
+    .fromTo(btnwrap, { opacity: 0, y: 30, scale: .8 }, { opacity: 1, y: 0, scale: 1, duration: .05 * s, ease: 'back.out(1.8)' }, at + .17 * s);
+}
+tl.to(hint, { opacity: 0, duration: .02 }, .01).set({}, {}, 1);
+
+// ---- calor ----
+let bf = 0;
+function applyHeat() {
+  glow.style.opacity = heat.k; embers.style.opacity = heat.k;
+  stage.classList.toggle('heat', heat.k > 0.02);
+  disp.setAttribute('scale', (heat.k * 14).toFixed(2));
+}
+gsap.ticker.add(() => {
+  applyHeat();
+  if (heat.k > 0.02) { bf += 0.0006; noise.setAttribute('baseFrequency', (0.012 + Math.sin(bf * 40) * 0.003).toFixed(4) + ' ' + (0.03 + Math.cos(bf * 30) * 0.006).toFixed(4)); }
+});
+
+video.addEventListener('loadedmetadata', () => { dur = video.duration; });
+
+if (!RECORD) {
+  gsap.ticker.add(() => {
+    if (!dur) return;
+    shown += (progress - shown) * 0.16;
+    const t = Math.min(shown * dur, dur - 0.04);
+    if (Math.abs(video.currentTime - t) > 0.005) video.currentTime = t;
+  });
+} else {
+  window.__ready = new Promise(res => {
+    if (video.readyState >= 2) res(); else video.addEventListener('loadeddata', res, {once:true});
+  }).then(() => { dur = video.duration; ScrollTrigger.refresh(); });
+  window.__frame = p => new Promise(res => {
+    window.scrollTo(0, p * HERO_LEN * innerHeight);
+    ScrollTrigger.update();
+    applyHeat();
+    document.getAnimations().forEach(a => { a.pause(); a.currentTime = p * 30000; });
+    const t = Math.min(p * dur, dur - 0.04);
+    const paint = () => requestAnimationFrame(() => requestAnimationFrame(res));
+    if (Math.abs(video.currentTime - t) < 0.0005) return paint();
+    video.addEventListener('seeked', paint, {once:true});
+    video.currentTime = t;
+  });
+}
+</script>
+</body>
+</html>
